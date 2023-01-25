@@ -1,20 +1,22 @@
 /* eslint-disable no-alert */
-import { LightningElement, wire, track } from 'lwc';
+import { LightningElement, track } from 'lwc';
 import noHeader from '@salesforce/resourceUrl/NoHeader';
 import {loadStyle} from "lightning/platformResourceLoader";
-import loadFaqsRecords from '@salesforce/apex/FaqsController.loadFaqsRecords';
+import getFaqs from "@salesforce/apex/FaqsController.getFaqs";
 
-
+ 
 export default class Faq extends LightningElement {
-
-    @wire(loadFaqsRecords) FAQ;    
-    @track recordId;
-    handleClickAsk() {
-        this.recordId = e.target.value;
-        alert(this.recordId);
-    }
+    @track data = [];    
 
     connectedCallback() {
+        getFaqs()
+            .then(result =>{
+                this.data = result;                
+            })
+            .catch(error => {
+                console.log('erro');
+            })
+
         loadStyle(this, noHeader)
             .then(result => {});
     }
