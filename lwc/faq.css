@@ -1,0 +1,25 @@
+.slds-page-header.flexipageHeader { 
+    display: none;
+}
+
+.slds-align_absolute-center::before, .slds-align_absolute-center::after {
+    content: "";
+    border-bottom: 3px solid;    
+    width: 30%;
+    display: block;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.slds-align_absolute-center::before{
+    border-image: linear-gradient(to right, white, black) 1;
+}
+
+.slds-align_absolute-center::after {
+    border-image: linear-gradient(to left, white, black) 1;
+}
+
+.titleH1 {
+    font-weight: bold;
+    margin-bottom: 4px;
+}
