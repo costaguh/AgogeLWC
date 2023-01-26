@@ -6,7 +6,7 @@
             <h1 class="slds-text-heading_large ">Perguntas Frequentes</h1>                                
         </header>
 
-        <div>
+        <div class="search">
             <lightning-input 
                 type="search"
                 onchange={handleSearch}
@@ -14,20 +14,32 @@
                 class="slds-vara-m-bottom_small slds-p-left_medium slds-p-right_medium"
                 placeholder="Pesquisar perguntas"
                 value={searchWords}>
-            </lightning-input>
-                            
+            </lightning-input>                            
         </div>
 
         <main class="slds-m-left_x-small slds-m-left_large">
             <template for:each={data} for:item="faq">
-                <div key={faq.Id}>
-                    <lightning-card>
-                        {faq.Question__c}
-                        <lightning-formatted-rich-text value={faq.Answe__c}></lightning-formatted-rich-text>                                  
-                    </lightning-card> 
-                </div>             
-            </template>               
+                <template if:false ={isSearchNotAvailable}>
+                    <div key={faq.Id} class="card">
+                        <lightning-card>
+                            <div class="question">
+                                {faq.Question__c}
+                            </div>
+                            <div class="answe">
+                                <lightning-formatted-rich-text value={faq.Answe__c}></lightning-formatted-rich-text>                                  
+                            </div>
+                        </lightning-card> 
+                    </div>
+                </template>             
+            </template> 
+            
+            <template if:true={isSearchNotAvailable} >
+                Não foi encontrado nenhum resultado.
+            </template>
         </main>
 
+        <template if:true={error}>
+            Foi encontrado um erro durante o carregamento das FAQs.
+        </template>
     </lightning-card>
 </template>

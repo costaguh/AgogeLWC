@@ -1,10 +1,10 @@
 .slds-align_absolute-center::before, .slds-align_absolute-center::after {
     content: "";
-    border-bottom: 3px solid;    
+    border-bottom: 0.188em solid;    
     width: 30%;
     display: block;
-    margin-left: 10px;
-    margin-right: 10px;
+    margin-left: 0.625em;
+    margin-right: 0.625em;
 }
 
 .slds-align_absolute-center::before{
@@ -17,5 +17,19 @@
 
 .titleH1 {
     font-weight: bold;
-    margin-bottom: 4px;
+    margin-bottom: 0.25em;
+}
+
+.card {
+    width: 98%;
+    border: 1px solid #CCCCCC;
+    border-radius: 10px;    
+    padding: 0px 0.625em 0.625em 0.625em;
+    margin: 0.625em 0.625em 0.625em 0.625em;
+}
+
+.question {
+    font-size: 1.25rem;
+    margin-top: -0.938em;
+    margin-bottom: 0.5em;
 }
