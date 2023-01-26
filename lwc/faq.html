@@ -1,21 +1,33 @@
 <template>
-    <lightning-card>        
-            <lightning-button class="slds-float_right slds-m-right_large" variant="brand" title="Nova pergunta" label="Nova pergunta" onclick={handleClickAsk}></lightning-button>
-            <header class="slds-align_absolute-center" style="height:5rem">                
-                <h1 class="slds-text-heading_large ">Perguntas Frequentes</h1>                                
-            </header>
-        <div class="slds-clearfix">
-        </div>    
+    <lightning-card>                
+        <lightning-button class="slds-float_right slds-m-right_large" variant="brand" title="Nova pergunta" label="Nova pergunta" onclick={handleClickAsk}></lightning-button>
+
+        <header class="slds-align_absolute-center" style="height:5rem">                
+            <h1 class="slds-text-heading_large ">Perguntas Frequentes</h1>                                
+        </header>
+
+        <div>
+            <lightning-input 
+                type="search"
+                onchange={handleSearch}
+                variant="label-hidden"
+                class="slds-vara-m-bottom_small slds-p-left_medium slds-p-right_medium"
+                placeholder="Pesquisar perguntas"
+                value={searchWords}>
+            </lightning-input>
+                            
+        </div>
+
         <main class="slds-m-left_x-small slds-m-left_large">
-                <template for:each={data} for:item="faq">
-                        <div key={faq.Id}>
-                            <lightning-card>
-                                {faq.Question__c}
-                                <lightning-formatted-rich-text value={faq.Answe__c}>                                    
-                                </lightning-formatted-rich-text> 
-                            </lightning-card> 
-                        </div>             
-                </template>               
-            </main>        
-        </lightning-card>
+            <template for:each={data} for:item="faq">
+                <div key={faq.Id}>
+                    <lightning-card>
+                        {faq.Question__c}
+                        <lightning-formatted-rich-text value={faq.Answe__c}></lightning-formatted-rich-text>                                  
+                    </lightning-card> 
+                </div>             
+            </template>               
+        </main>
+
+    </lightning-card>
 </template>
