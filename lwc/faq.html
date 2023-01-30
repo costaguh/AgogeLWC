@@ -19,19 +19,15 @@
 
         <main class="slds-m-left_x-small slds-m-left_large">
             <template for:each={data} for:item="faq">
-                <template if:false ={isSearchNotAvailable}>
-                    <div key={faq.Id} class="card">
-                        <lightning-card>
-                            <div class="question">
-                                {faq.Question__c}
-                            </div>
+                <lightning-accordion allow-multiple-sections-open key={faq.Id}>
+                    <lightning-accordion-section name={faq.Id} label={faq.Question__c}>
+                        <template if:false ={isSearchNotAvailable}>
                             <div class="answe">
-                                <lightning-formatted-rich-text value={faq.Answe__c}>                                    
-                                </lightning-formatted-rich-text>                                  
-                            </div>
-                        </lightning-card> 
-                    </div>
-                </template>             
+                                <lightning-formatted-rich-text value={faq.Answe__c}></lightning-formatted-rich-text>                                  
+                            </div>             
+                        </template>
+                    </lightning-accordion-section>             
+                </lightning-accordion>
             </template> 
             
             <template if:true={isSearchNotAvailable} >

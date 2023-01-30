@@ -8,7 +8,9 @@ export default class Faq extends LightningElement {
     @track data = [];
     error;
     searchWords = '';
-    isSearchNotAvailable = false;    
+    isSearchNotAvailable = false;
+    typingTimer;
+    doneTypingInterval = 1000;    
 
     connectedCallback() {
         this.loadFaqs(this.searchWords);
@@ -19,10 +21,12 @@ export default class Faq extends LightningElement {
 
     handleSearch(event){
         this.searchWords = event.target.value;
-        this.loadFaqs(this.searchWords);
+        this.typingTimer = setTimeout(() => {
+            this.loadFaqs(this.searchWords);
+        }, this.doneTypingInterval);                 
     }
 
-    loadFaqs(searchWords){
+    loadFaqs(searchWords){        
         getFaqs({ searchKey: searchWords})
             .then(result =>{
                 this.data = result;
@@ -36,6 +40,6 @@ export default class Faq extends LightningElement {
             .catch(error => {
                 this.isSearchNotAvailable = false;
                 this.error = error;
-            })
+            })        
     }
 }
