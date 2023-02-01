@@ -6,6 +6,8 @@ import getFaqs from "@salesforce/apex/FaqsController.getFaqs";
  
 export default class Faq extends LightningElement {
     @track data = [];
+    @track pageNumber = 1;
+    @track pageSize = 5;
     error;
     searchWords = '';
     isSearchNotAvailable = false;
@@ -14,23 +16,25 @@ export default class Faq extends LightningElement {
 
     connectedCallback() {
         this.loadFaqs(this.searchWords);
-
+    
         loadStyle(this, noHeader)
-            .then(result => {});
+            .then(result => {});  
+        
     }
-
+    
     handleSearch(event){
         this.searchWords = event.target.value;
         this.typingTimer = setTimeout(() => {
+            this.pageNumber = 1;
             this.loadFaqs(this.searchWords);
         }, this.doneTypingInterval);                 
     }
-
+    
     loadFaqs(searchWords){        
-        getFaqs({ searchKey: searchWords})
+        getFaqs({ searchKey: searchWords, pageNumber: this.pageNumber, pageSize: this.pageSize})
             .then(result =>{
                 this.data = result;
-
+    
                 if(this.data.length > 0){
                     this.isSearchNotAvailable = false;
                 }else {
@@ -40,6 +44,19 @@ export default class Faq extends LightningElement {
             .catch(error => {
                 this.isSearchNotAvailable = false;
                 this.error = error;
-            })        
+            })            
+            
+    }
+    
+    handlePreviousPage() {
+        if (this.pageNumber > 1) {
+            this.pageNumber--;
+            this.loadFaqs(this.searchWords);
+        }
+    }
+    
+    handleNextPage() {
+        this.pageNumber++;
+        this.loadFaqs(this.searchWords);
     }
 }

@@ -28,7 +28,10 @@
                         </template>
                     </lightning-accordion-section>             
                 </lightning-accordion>
-            </template> 
+            </template>
+            
+            <button class="slds-button slds-button_brand" onclick={handlePreviousPage}>Anterior</button>
+            <button class="slds-button slds-button_brand" onclick={handleNextPage}>Próximo</button>
             
             <template if:true={isSearchNotAvailable} >
                 <div class="errorText">
