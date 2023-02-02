@@ -8,6 +8,7 @@ export default class Faq extends LightningElement {
     @track data = [];
     @track pageNumber = 1;
     @track pageSize = 5;
+
     error;
     searchWords = '';
     isSearchNotAvailable = false;
@@ -59,4 +60,6 @@ export default class Faq extends LightningElement {
         this.pageNumber++;
         this.loadFaqs(this.searchWords);
     }
+
+    
 }

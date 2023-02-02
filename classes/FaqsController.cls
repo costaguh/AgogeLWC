@@ -28,5 +28,5 @@ public with sharing class FaqsController {
 
 			return null;
 		}
-    }
+    }	
 }

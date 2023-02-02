@@ -1,9 +1,9 @@
 <template>
     <lightning-card>                
         <!-- <lightning-button class="slds-float_right slds-m-right_large" variant="brand" title="Nova pergunta" label="Nova pergunta" onclick={handleClickAsk}></lightning-button> -->
-
+        
         <header class="slds-align_absolute-center" style="height:5rem">                
-            <h1 class="slds-text-heading_large ">Perguntas Frequentes</h1>                                
+            <h1 class="slds-text-heading_large">Perguntas Frequentes</h1>                                
         </header>
 
         <div class="search">
@@ -11,7 +11,7 @@
                 type="search"
                 onchange={handleSearch}
                 variant="label-hidden"
-                class="slds-vara-m-bottom_small slds-p-left_medium slds-p-right_medium"
+                class="slds-vara-m-bottom_small slds-p-left_medium slds-p-right_medium searchInput"
                 placeholder="Pesquisar perguntas"
                 value={searchWords}>
             </lightning-input>                            
@@ -20,30 +20,34 @@
         <main class="slds-m-left_x-small slds-m-left_large">
             <template for:each={data} for:item="faq">
                 <lightning-accordion allow-multiple-sections-open key={faq.Id}>
-                    <lightning-accordion-section name={faq.Id} label={faq.Question__c}>
+                    <lightning-accordion-section class="question" name={faq.Id} label={faq.Question__c}>
                         <template if:false ={isSearchNotAvailable}>
                             <div class="answe">
-                                <lightning-formatted-rich-text value={faq.Answe__c}></lightning-formatted-rich-text>                                  
+                                <lightning-formatted-rich-text class="answe" value={faq.Answe__c}></lightning-formatted-rich-text>                                  
                             </div>             
                         </template>
                     </lightning-accordion-section>             
                 </lightning-accordion>
             </template>
-            
-            <button class="slds-button slds-button_brand" onclick={handlePreviousPage}>Anterior</button>
-            <button class="slds-button slds-button_brand" onclick={handleNextPage}>Próximo</button>
-            
+
             <template if:true={isSearchNotAvailable} >
                 <div class="errorText">
                     Não foi encontrado nenhum resultado.
                 </div>
             </template>
+
+            <template if:true={error}>
+                <div class="errorText">
+                    Foi encontrado um erro durante o carregamento das FAQs.
+                </div>
+            </template>
         </main>
 
-        <template if:true={error}>
-            <div class="errorText">
-                Foi encontrado um erro durante o carregamento das FAQs.
+        <footer>
+            <div class="buttonPagination slds-align_absolute-center">            
+                <button class="buttonPaginationLeft slds-button slds-button_brand" onclick={handlePreviousPage}>Anterior</button>
+                <button class="buttonPaginationRight slds-button slds-button_brand" onclick={handleNextPage}>Próximo</button>
             </div>
-        </template>
+        </footer>
     </lightning-card>
 </template>
